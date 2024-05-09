@@ -12,7 +12,9 @@ import (
 
 func init() {
 	router := mux.NewRouter()
-	router.Use(config.CorsMiddleware)
+	router.Use(func(next http.Handler) http.Handler {
+		return config.CorsMiddleware(next, "GET, POST, PUT, DELETE")
+	})
 	router.HandleFunc("/todo", HandlerTodo)
 }
 

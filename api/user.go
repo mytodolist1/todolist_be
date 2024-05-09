@@ -12,7 +12,9 @@ import (
 
 func init() {
 	router := mux.NewRouter()
-	router.Use(config.CorsMiddleware)
+	router.Use(func(next http.Handler) http.Handler {
+		return config.CorsMiddleware(next, "GET, PUT, DELETE")
+	})
 	router.HandleFunc("/user", HandlerUser)
 }
 
@@ -21,7 +23,7 @@ func HandlerUser(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("_id")
 
 	switch r.Method {
-	case http.MethodDelete:
+	case http.MethodDelete: 
 		_, err := handler.PasetoDecode(w, r, "Authorization")
 		if err != nil {
 			handler.StatusBadRequest(w, err.Error())
