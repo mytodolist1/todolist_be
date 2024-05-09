@@ -18,7 +18,7 @@ func init() {
 }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost && r.Method != http.MethodOptions {
+	if r.Method != http.MethodPost {
 		handler.StatusMethodNotAllowed(w, "Method not allowed")
 		return
 
