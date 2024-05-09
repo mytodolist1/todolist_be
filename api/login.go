@@ -18,10 +18,6 @@ func init() {
 }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
-	router := mux.NewRouter()
-	router.Use(config.CorsMiddleware)
-	router.HandleFunc("/login", HandlerLogin).Methods("POST", "OPTIONS")
-	
 	if r.Method == http.MethodPost {
 		err := handler.JDecoder(w, r, &datauser)
 		if err != nil {
