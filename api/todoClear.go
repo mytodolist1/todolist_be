@@ -72,7 +72,7 @@ func HandlerTodoClear(w http.ResponseWriter, r *http.Request) {
 			} else {
 				handler.StatusUnauthorized(w, "You are not authorized to access this data")
 				return
-			}
+			} 
 
 		} else {
 			payload, err := handler.PasetoDecode(w, r, "Authorization")

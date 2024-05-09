@@ -26,3 +26,12 @@ func TestGetTodoByUID(t *testing.T) {
 
 	fmt.Println("todos: ", todos)
 }
+
+func TestGetCategory(t *testing.T) {
+	todos, err := modul.GetCategory(mconn, "category")
+	if err != nil {
+		fmt.Println("Error GetTodoFromCategory: ", err)
+	}
+
+	fmt.Println("todos: ", todos)
+}

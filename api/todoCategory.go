@@ -42,6 +42,10 @@ func HandlerTodoCategory(w http.ResponseWriter, r *http.Request) {
 				handler.StatusUnauthorized(w, "You are not authorized to access this data")
 				return
 			}
+
+		} else {
+			handler.StatusUnauthorized(w, "You are not authorized to access this data")
+			return
 		}
 	}
 }
