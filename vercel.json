@@ -1,8 +1,12 @@
 {
-    "routes": [
-        {
-            "src":"/(.*)",
-            "dest":"/router"
-        }
-    ]
+  "routes": [
+    {
+      "src": "/",
+      "dest": "api/home.go"
+    },
+    {
+      "src": "/register",
+      "dest": "api/register.go"
+    }
+  ]
 }

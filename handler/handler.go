@@ -60,7 +60,7 @@ func HandlerLogin(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		StatusOK(w, "User "+ user.Username +" has been logged in", "token", tokenstring, "data", user)
+		StatusOK(w, "User "+user.Username+" has been logged in", "token", tokenstring, "data", user)
 		return
 	}
 }

@@ -1,3 +1,7 @@
 .env*
-/node_modules
+node_modules
 .vercel
+
+handler/handler.go
+router
+main.go
