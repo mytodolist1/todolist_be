@@ -14,7 +14,7 @@ import (
 func init() {
 	router := mux.NewRouter()
 	router.Use(config.CorsMiddleware)
-	router.HandleFunc("/login", HandlerLogin)
+	router.HandleFunc("/login", HandlerLogin).Methods("POST", "OPTIONS")
 }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
