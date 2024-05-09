@@ -11,13 +11,16 @@ import (
 	"github.com/mytodolist1/todolist_be/paseto"
 )
 
-func init() {
-	router := mux.NewRouter()
-	router.Use(config.CorsMiddleware)
-	router.HandleFunc("/login", HandlerLogin).Methods("POST", "OPTIONS")
-}
+// func init() {
+// 	router := mux.NewRouter()
+// 	router.Use(config.CorsMiddleware)
+// 	router.HandleFunc("/login", HandlerLogin).Methods("POST", "OPTIONS")
+// }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
+	router := mux.NewRouter()
+	router.Use(config.CorsMiddleware)
+
 	if r.Method != http.MethodPost {
 		handler.StatusMethodNotAllowed(w, "Method not allowed")
 		return
