@@ -10,7 +10,10 @@
     },
     {
       "src": "/login",
-      "dest": "api/login.go"
+      "dest": "api/login.go",
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
     },
     {
       "src": "/user",

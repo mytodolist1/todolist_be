@@ -13,14 +13,12 @@ import (
 
 func init() {
 	router := mux.NewRouter()
-	router.Use(func(next http.Handler) http.Handler {
-		return config.CorsMiddleware(next, "POST")
-	})
+	router.Use(config.CorsMiddleware)
 	router.HandleFunc("/login", HandlerLogin)
 }
 
 func HandlerLogin(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodPost && r.Method != http.MethodOptions {
 		handler.StatusMethodNotAllowed(w, "Method not allowed")
 		return
 
