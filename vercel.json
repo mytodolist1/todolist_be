@@ -1,43 +1,12 @@
 {
   "routes": [
     {
-      "src": "/",
-      "dest": "api/home.go"
-    },
-    {
-      "src": "/register",
-      "dest": "api/register.go"
-    },
-    {
-      "src": "/login",
-      "dest": "api/login.go",
+      "src": "/(.*)",
+      "dest": "handler/handler.go",
+      "methods": ["GET, POST, PUT, DELETE, PATCH, OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
       }
-    },
-    {
-      "src": "/user",
-      "dest": "api/user.go"
-    },
-    {
-      "src": "/todo",
-      "dest": "api/todo.go"
-    },
-    {
-      "src": "/todo/category",
-      "dest": "api/todoCategory.go"
-    },
-    {
-      "src": "/todo/clear",
-      "dest": "api/todoClear.go"
-    },
-    {
-      "src": "/todo/log",
-      "dest": "api/logTodo.go"
-    },
-    {
-      "src": "/user/log",
-      "dest": "api/logUser.go"
     }
   ]
 }
