@@ -49,55 +49,63 @@ func JDecoder(w http.ResponseWriter, r *http.Request, data any) error {
 	return nil
 }
 
-func StatusMethodNotAllowed(w http.ResponseWriter, message string) string {
+func StatusNotFound(w http.ResponseWriter, message string) {
+	responseData = bson.M{
+		"status":  http.StatusNotFound,
+		"message": message,
+	}
+	fmt.Fprint(w, ReturnStruct(responseData))
+}
+
+func StatusMethodNotAllowed(w http.ResponseWriter, message string) {
 	responseData = bson.M{
 		"status":  http.StatusMethodNotAllowed,
 		"message": message,
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
-func StatusBadRequest(w http.ResponseWriter, message string) string {
+func StatusBadRequest(w http.ResponseWriter, message string) {
 	responseData = bson.M{
 		"status":  http.StatusBadRequest,
 		"message": message,
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
-func StatusUnauthorized(w http.ResponseWriter, message string) string {
+func StatusUnauthorized(w http.ResponseWriter, message string) {
 	responseData = bson.M{
 		"status":  http.StatusUnauthorized,
 		"message": message,
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
-func StatusCreated(w http.ResponseWriter, message string) string {
+func StatusCreated(w http.ResponseWriter, message string) {
 	responseData = bson.M{
 		"status":  http.StatusCreated,
 		"message": message,
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
-func StatusNoContent(w http.ResponseWriter, message string) string {
+func StatusNoContent(w http.ResponseWriter, message string) {
 	responseData = bson.M{
 		"status":  http.StatusNoContent,
 		"message": message,
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
-func StatusConflict(w http.ResponseWriter, message string) string {
+func StatusConflict(w http.ResponseWriter, message string) {
 	responseData = bson.M{
 		"status":  http.StatusConflict,
 		"message": message,
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
-func StatusOK(w http.ResponseWriter, message string, data ...any) string {
+func StatusOK(w http.ResponseWriter, message string, data ...any) {
 	responseData := bson.M{
 		"status":  http.StatusOK,
 		"message": message,
@@ -108,13 +116,13 @@ func StatusOK(w http.ResponseWriter, message string, data ...any) string {
 			key, ok := data[i].(string)
 			if !ok {
 				fmt.Println("Parameter namedata harus berupa string")
-				return ""
+				return
 			}
 			responseData[key] = data[i+1]
 			i++
 		}
 	}
-	return ReturnStruct(responseData)
+	fmt.Fprint(w, ReturnStruct(responseData))
 }
 
 // func StatusOK(w http.ResponseWriter, message, namedata string, data ...any) {
