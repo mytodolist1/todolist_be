@@ -31,14 +31,14 @@ func Log(db *mongo.Database, col string, uid primitive.ObjectID, original, updat
 		}},
 	}
 
-	err := UpdateOneDoc(db, col, filter, update)
+	result, err := UpdateOneDoc(db, col, filter, update)
 	if err != nil {
 		fmt.Printf("UpdateOneDoc: %v\n", err)
 		return err
 	}
 
 	// jika tidak ada data yang diupdate, maka insert log baru
-	if updated == nil {
+	if result.MatchedCount == 0 {
 		logUpdate := bson.D{
 			{Key: "action", Value: "update"},
 			{Key: "uid", Value: uid.Hex()},

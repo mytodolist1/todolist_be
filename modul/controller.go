@@ -164,7 +164,7 @@ func ChangePassword(db *mongo.Database, col string, userdata model.User) (user m
 		},
 	}
 
-	err = comp.UpdateOneDoc(db, col, filter, update)
+	_, err = comp.UpdateOneDoc(db, col, filter, update)
 	if err != nil {
 		return user, fmt.Errorf("ChangePassword: %v", err)
 	}
@@ -414,12 +414,12 @@ func UpdateTodo(db *mongo.Database, col string, id primitive.ObjectID, r *http.R
 	}
 
 	// periksa apakah data yang ingin diupdate sama dengan data sebelumnya
-	todoExists, _ := GetTodoFromID(db, col, id)
-	// if err != nil {
-	// 	return model.Todo{}, false, err
-	// }
+	todoExists, err := GetTodoFromID(db, col, id)
+	if err != nil {
+		return model.Todo{}, false, err
+	}
 	if title == todoExists.Title && description == todoExists.Description && deadline == todoExists.Deadline && times == todoExists.Time {
-		err := fmt.Errorf("silahkan update data anda")
+		err = fmt.Errorf("silahkan update data anda")
 		return model.Todo{}, false, err
 	}
 

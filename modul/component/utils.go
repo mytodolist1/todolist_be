@@ -87,20 +87,14 @@ func CheckDocExist(db *mongo.Database, col string, filter any) (bool, error) {
 }
 
 // update one document in collection
-func UpdateOneDoc(db *mongo.Database, col string, filter, update any) error {
+func UpdateOneDoc(db *mongo.Database, col string, filter, update any) (*mongo.UpdateResult, error) {
 	cols := db.Collection(col)
 	result, err := cols.UpdateOne(context.Background(), filter, update)
 	if err != nil {
-		return fmt.Errorf("error updating data for filter %+v: %s", filter, err)
-	}
-	if result.MatchedCount == 0 {
-		return fmt.Errorf("no data matched for filter %+v", filter)
-	}
-	if result.ModifiedCount == 0 {
-		return fmt.Errorf("no data modified for filter %+v", filter)
+		return nil, fmt.Errorf("error updating data for filter %+v: %s", filter, err)
 	}
 
-	return nil
+	return result, nil
 }
 
 // find one and update document in collection
