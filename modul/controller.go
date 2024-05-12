@@ -2,6 +2,7 @@ package modul
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -485,7 +486,8 @@ func UpdateTodo(db *mongo.Database, col string, id primitive.ObjectID, r *http.R
 	}
 
 	// simpan log
-	err = comp.Log(db, "logtodo", id, originalTodo, todoExists)
+	var user model.User
+	err = comp.Log(db, "logtodo", user.ID, originalTodo, todoExists)
 	if err != nil {
 		return model.Todo{}, false, err
 	}
@@ -711,6 +713,26 @@ func TodoClear(db *mongo.Database, col string, todoID primitive.ObjectID) (bool,
 	}
 
 	return true, nil
+}
+
+func DeleteTodoClear(db *mongo.Database, col string) error {
+	millisecondsAgo := int64(30 * 24 * 60 * 60 * 1000)
+
+	filter := bson.M{
+		"timeclear": bson.M{
+			"$lt": time.Now().UnixMilli() - millisecondsAgo,
+		},
+	}
+
+	result, err := comp.DeleteManyDoc(db, col, filter)
+	if err != nil {
+		log.Println("Error DeleteTodoClear in colection", col, ":", err)
+		return err
+	}
+
+	fmt.Printf("Dihapus %d data todo clear\n", result.DeletedCount)
+
+	return nil
 }
 
 // get todo clear by uid user

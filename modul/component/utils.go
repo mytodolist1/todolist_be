@@ -122,3 +122,14 @@ func DeleteOneDoc(db *mongo.Database, col string, filter any) error {
 
 	return nil
 }
+
+// delete many document in collection
+func DeleteManyDoc(db *mongo.Database, col string, filter any) (*mongo.DeleteResult, error) {
+	cols := db.Collection(col)
+	result, err := cols.DeleteMany(context.Background(), filter)
+	if err != nil {
+		return nil, fmt.Errorf("error deleting data for filter %+v: %s", filter, err)
+	}
+
+	return result, nil
+}
