@@ -486,8 +486,8 @@ func UpdateTodo(db *mongo.Database, col string, id primitive.ObjectID, r *http.R
 	}
 
 	// simpan log
-	var user model.User
-	err = comp.Log(db, "logtodo", user.ID, originalTodo, todoExists)
+	uid := todoExists.User.ID
+	err = comp.Log(db, "logtodo", uid, originalTodo, todoExists)
 	if err != nil {
 		return model.Todo{}, false, err
 	}
